@@ -1,0 +1,200 @@
+<!DOCTYPE HTML>
+<!-- Another method of homework 2
+     hw2_other.html
+     A list of the first five countries sorted by total area...The following are the brief introduction of the countries.
+     Name: Shanshan Jiang
+     Course: IAD   
+     HW#: HW2
+     Time: 09/29/2015/
+     -->
+<!--There are five countries which have the largest area in the world.
+    The first country is Russia.
+    The second country is Canada.
+    The third country is China.
+    The fourth country is United States.
+    The fifth country is Brazil.
+    -->
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>IAD HW2</title>
+<!-- if several elements are stacked over each other the
+one with the highest style.zIndex will be visible -->
+
+<style type="text/css">
+    /*Set the style of the primary menu*/
+    html,body
+    {
+        width:100%;
+        height:100%;
+        /*Set the margin of the webpage to 0px*/
+        margin:0px;
+        padding:0px;
+        border-style:none;
+    }
+    h1.aHeader
+    {
+        color:        orange;
+        text-align:   center;
+    }
+    #menuID
+    {
+        width:225px;
+        height:320px;
+        background-color:RGB(216,216,216);
+        padding:0px;
+        margin:0px;
+    }
+    /*Get rid of the dot of the list*/
+    #menuID ul
+    {
+        width:225px;
+        list-style-type:none;
+        padding:0px;
+        margin:0px; /*Set the left margin to 0px*/
+    }
+    #menuID ul li
+    {
+        width:225px;
+        /*
+        margin:0px;
+        padding:0px;
+        */
+    }
+    #menuID ul li a
+    {
+        display:block;
+        color:Gray;
+        text-align:left;
+        text-decoration:none;
+        padding:10px 0px 10px 30px;
+        font-size:14px;
+    }
+    #menuID ul li a:hover
+    {
+        color:Orange;
+        text-align:left;
+        text-decoration:none;
+        padding:10px 0px 10px 30px;
+        font-size:14px;
+    }
+    /*Set the style of the secondary menu*/
+    #menuID ul li ul
+    {
+        list-style-type:none;
+        /*
+        padding:0px;
+        margin:0px;
+        */
+    }
+    #menuID ul li ul li
+    {
+        width:225px;
+    }
+    #menuID ul li ul li a
+    {
+        display:block;
+        padding:6px 0px 6px 60px;
+        text-align:left;
+        text-decoration:none;
+        font-size:12px;
+    }
+    #menuID ul li ul li a:hover
+    {
+        padding:6px 0px 6px 60px;
+        text-align:left;
+        text-decoration:none;
+        font-size:12px;
+        color:Black;
+        background-color:#CD2626;
+    }
+</style>
+
+
+<script type="text/javascript">
+     /*The function to execute when open the webpage*/
+    function loadFun() {
+        //get all the childnodes between <ul> and </ul>. There are five chidnodes called <li>
+        var root = document.getElementById("menuID");
+        var array = root.getElementsByTagName("ul").item(0).childNodes;
+        //traverse all the childnodes
+        for (var i = 0; i < array.length; i++) {
+            //get all the childnodes between <li> and </li>
+            var childnodes = array[i].childNodes;
+            for (var j = 0; j < childnodes.length; j++) {
+                //if the childnode equals <ul>...Just concel it
+                if (childnodes[j].tagName == "UL") {
+                    childnodes[j].style.display = "none";
+                }
+            }
+        }
+    }
+     /*The function to execute when click the button*/
+    var arrays = new Array("1)Russia","2)Canada","3)China","4)UnitedStates","5)Brazil"); 
+    function Show(tagId) {  
+        for (var i = 0; i < arrays.length; i++) {  
+            if (arrays[i] == tagId) {  
+                //Set the new background color
+                document.getElementById(arrays[i]).parentNode.style.backgroundColor = "RGB(237,237,237)";  
+                document.getElementById(arrays[i]).style.display = "block";  
+            }  
+            else {  
+                //set the backgrond color to the default one
+                document.getElementById(arrays[i]).parentNode.style.backgroundColor = "RGB(216,216,216)";  
+                document.getElementById(arrays[i]).style.display = "none";  
+            }  
+        }  
+    }  
+    </script>
+
+
+
+<!-- **************************************************************************************** -->
+</head>
+<body onload="loadFun()">
+    <h1 class="aHeader">The first five countries sorted by total area
+    </h1>
+    <br>
+    <br>
+    <br>
+<div id="menuID">  
+    <ul>
+        <li><a href="#" onclick="Show('1)Russia')">1)Russia</a>
+                <ul id ="1)Russia">
+                    <li><a href="https://en.wikipedia.org/wiki/Russia">Brief Introduction</a></li>
+                    <li><a href="https://en.wikipedia.org/wiki/Russia#Etymology">Etymology</a></li>
+                    <li><a href="https://en.wikipedia.org/wiki/Russia#History">History</a></li>
+                </ul>
+        </li>
+        <li><a href="#" onclick="Show('2)Canada')">2)Canada</a>
+                 <ul id ="2)Canada">
+                    <li><a href="https://en.wikipedia.org/wiki/Canada">Brief Introduction</a></li>
+                    <li><a href="https://en.wikipedia.org/wiki/Canada#Etymology">Etymology</a><li>
+                    <li><a href="https://en.wikipedia.org/wiki/Canada#History">History</a><li>
+                </ul>
+        </li>
+        <li><a href="#" onclick="Show('3)China')">3)China</a>
+                <ul id ="3)China">
+                    <li><a href="https://en.wikipedia.org/wiki/China">Brief Introduction</a></li>
+                    <li><a href="https://en.wikipedia.org/wiki/China#Etymology">Etymology</a></li>
+                    <li><a href="https://en.wikipedia.org/wiki/China#History">History</a></li>
+                </ul>
+        </li>
+        <li><a href="#" onclick="Show('4)UnitedStates')">4)UnitedStates</a>
+                 <ul id ="4)UnitedStates">
+                    <li><a href="https://en.wikipedia.org/wiki/United_States">Brief Introduction</a></li>
+                    <li><a href="https://en.wikipedia.org/wiki/United_States#Etymology">Etymology</a></li>
+                    <li><a href="https://en.wikipedia.org/wiki/United_States#History">History</a></li>
+                </ul>
+        </li>
+        <li><a href="#" onclick="Show('5)Brazil')">5)Brazil</a>
+                <ul id ="5)Brazil">
+                    <li><a href="https://en.wikipedia.org/wiki/Brazil">Brief Introduction</a></li>
+                    <li><a href="https://en.wikipedia.org/wiki/Brazil#Etymology">Etymology</a></li>
+                    <li><a href="https://en.wikipedia.org/wiki/Brazil#History">History</a></li>
+                </ul>
+        </li>
+    </ul>  
+</div>  
+</body>  

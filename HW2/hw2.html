@@ -1,0 +1,193 @@
+<!DOCTYPE HTML>
+<!-- hw2.html
+     A list of the first five countries sorted by total area...The following are the brief introduction of the countries.
+     Name: Shanshan Jiang
+     Course: IAD   
+     HW#: HW2
+     Time: 09/29/2015/
+     -->
+<!--There are five countries which have the largest area in the world.
+    The first country is Russia.
+    The second country is Canada.
+    The third country is China.
+    The fourth country is United States.
+    The fifth country is Brazil.
+    -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>IAD HW2</title>
+<!-- if several elements are stacked over each other the
+one with the highest style.zIndex will be visible -->
+<style type="text/css">
+/*Set the style of the primary menu*/
+*
+{   font-family:  arial;
+    text-align: center;}
+
+h1.aHeader
+{
+    color:        orange;
+    text-align:   center;
+    top:          500px;}
+
+#menuID
+{   margin: 0 auto;
+    padding: 0px;
+    z-index: 30px;
+    background-color:#F4F4F4;
+    width: 650px;
+    height:23px;}
+
+#menuID li
+{   margin: 0;
+    padding: 0;
+    list-style: none;
+    float: left;
+    font: bold 12px arial}
+
+    #menuID li a
+    {   display: block;
+        margin: 0 1px 0 0;
+        padding: 4px 10px;
+        width: 100px;
+        background: #5970B2;
+        color: #FFF;
+        text-align: center;
+        text-decoration: none}
+
+     #menuID li a:hover
+     {  background: #49A3FF}
+
+#menuID ul li ul
+{   position: absolute;
+    visibility: hidden;
+    margin: 0;
+    padding: 0;
+    background: #EAEBD8;
+    border: 1px solid #5970B2}
+
+    #menuID ul li ul li a
+    {   position: relative;
+        display: block;
+        margin: 0;
+        padding: 5px 10px;
+        width: auto;
+        white-space: nowrap;
+        text-align: left;
+        text-decoration: none;
+        background: #EAEBD8;
+        color: #2875DE;
+        font: 12px arial}
+
+    #menuID ul li ul li a:hover
+    {   background: #49A3FF;
+        color: #FFF}
+</style>
+
+<script type="text/javascript">
+    window.onload=function(){
+        menuFun();
+    }
+    // Get the clss_name
+    function getClass(tag_name,class_name){ //parameters tag_name the class_name
+        if(document.getElementsByClassName){  //if it supports getElementsByClassName
+            return document.getElementsByClassName(class_name);
+        }else{
+            var tags=document.getElementsByTagName(tag_name); //get tag_name
+            var tagAll=[];  //Set a array to save the ones that match the condition
+            for(var i=0;i<tags.length;i++){
+                if(tags[i].className==class_name){   //Judge if the curren tag[i].classNmane equals to the one we want
+                    tagAll[tagAll.length]=tags[i]; // If it euals to the one. Put them together.
+                }
+            }
+            return tagAll;
+        }
+    }
+    function getNextElementNode(node){
+    if(node.nodeType==1){
+        return node;
+    }
+    if(node.nextSibling){
+        return getNextElementNode(node.nextSibling);
+    }
+}
+    function menuFun(){
+        var list=getClass("a","parent");
+        for(var i=0;i<list.length;i++){
+            list[i].onclick=function(){
+                show(this);
+                return false;
+            }
+            list[i].onmouseover=function(){
+                hide(this);
+            }
+        }
+    }
+
+    function hide(Obj){ //Hide
+      var elem=getNextElementNode(Obj.nextSibling);
+      elem.style.visibility="hidden";
+    }
+    
+    function show(Obj){  //Show
+    var elem=getNextElementNode(Obj.nextSibling);
+    var Odiv=document.getElementById("menuID").getElementsByTagName("div");
+    for(var j=0;j<Odiv.length;j++){
+        if(Odiv[j].style.visibility=="visible"){
+            Odiv[j].style.visibility="hidden";
+        }
+    }
+    elem.style.visibility="visible";
+
+    }
+</script>
+</head>
+
+<body>
+<h1 class="aHeader">The first five countries sorted by total area</h1>
+<br/>
+<br/>
+<br/>
+
+<div id="menuID">
+<ul>
+     <li><a href="#" class="parent">1) Russia</a>
+        <ul>
+        <li><a href="https://en.wikipedia.org/wiki/Russia">Brief Introduction</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/Russia#Etymology">Etymology</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/Russia#History">History</a></li>
+        </ul>
+     </li> 
+     <li><a href="#" class="parent">2) Canada</a>
+        <ul>
+        <li><a href="https://en.wikipedia.org/wiki/Canada">Brief Introduction</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/Canada#Etymology">Etymology</a><li>
+        <li><a href="https://en.wikipedia.org/wiki/Canada#History">History</a><li>
+        </ul>
+     </li>
+     <li><a href="#" class="parent">3) China</a>
+        <ul>
+        <li><a href="https://en.wikipedia.org/wiki/China">Brief Introduction</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/China#Etymology">Etymology</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/China#History">History</a></li>
+        </ul>
+     </li>      
+     <li><a href="#" class="parent">4) United States</a>
+        <ul>
+        <li><a href="https://en.wikipedia.org/wiki/United_States">Brief Introduction</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/United_States#Etymology">Etymology</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/United_States#History">History</a></li>
+        </ul>
+     </li> 
+     <li><a href="#" class="parent">5) Brazil</a>
+        <ul>
+        <li><a href="https://en.wikipedia.org/wiki/Brazil">Brief Introduction</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/Brazil#Etymology">Etymology</a></li>
+        <li><a href="https://en.wikipedia.org/wiki/Brazil#History">History</a></li>
+        </ul>
+     </li>  
+</ul>    
+</div>
+</body>
+</html>

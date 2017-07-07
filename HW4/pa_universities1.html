@@ -1,0 +1,139 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+"http://www.w3.org/TR/html4/loose.dtd">
+<!-- pa_universities1.html
+     Name: Shanshan Jiang
+     Course: IAD   
+     HW#: HW4
+     Time: 11/04/2015/
+     -->
+<!--In the pa_universities1.html,
+    one can search all the information about PA univesities 
+    by either enter the institution name
+    or by city name.
+    If what you enter matches the data of the pa_university table,
+    the character will show in bold character.
+    -->
+
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <title>IAD HW4</title>
+
+   <style type=text/css>
+       body  {font-family:arial;background-color: #4FB3E7;}
+       h2    {color:gray; text-align:center;color: #336;}
+       td,th {font-size: 10pt; text-align:left;}
+       #lastModified
+       {
+        width: 100%;
+        position: absolute;
+        top: 30px;
+        right: 5px;
+        z-index: 6;
+        padding-top: 10px;
+        text-align: right;
+        font-size: 11px;
+       }
+       #copyright
+       {
+        border-bottom: 3px solid #B6B3C4;
+        background-color: #336;
+        color: #FFFFFF;
+        font-size: 11px;
+        text-align: center;
+        padding: 5px;
+        }
+
+   </style>
+
+
+   <script type="text/javascript">
+
+            //*** Universities' data is read from MySql DB
+
+            var xmlhttp = new XMLHttpRequest();
+            //*** the event handler begins here *****************************
+            xmlhttp.onreadystatechange=function() {
+
+                   //*** response is ready
+                   if ((xmlhttp.readyState == 4) && (xmlhttp.status == 200)) {
+
+                        //*** results return as a table that is plugged into myDiv
+                        document.getElementById("myTable").style.background="#abcdef";
+                        document.getElementById("myTD").style.color="white";
+                        document.getElementById("myTD").style.fontWeight="bold";
+                        document.getElementById("myTD2").style.color="white";
+                        document.getElementById("myTD2").style.fontWeight="bold";
+
+                        document.getElementById("myDiv").innerHTML = xmlhttp.responseText;
+                   }
+
+            } // onreadystatechange ******************************************
+
+
+            //*** initiate the asynchronous request
+            function ajaxFunction() {
+
+              //*** prepare the server URL and query string
+              var URL = "pa_universities.php";
+              var queryString1 = "aname=" + document.myForm.aname.value;
+
+
+              //*** open up the asynchronous request to server
+              xmlhttp.open("POST", URL, true);
+
+
+              //*** send the finalized request
+              xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+              xmlhttp.send(queryString1);
+
+            } // ajaxFunction
+
+            //*** initiate the asynchronous request
+            function ajaxFunction2() {
+
+              //*** prepare the server URL and query string
+              var URL = "pa_universities2.php";
+              var queryString2 = "acity=" + document.myForm.acity.value;
+
+
+              //*** open up the asynchronous request to server
+              xmlhttp.open("POST", URL, true);
+
+              //*** send the finalized request
+              xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+              xmlhttp.send(queryString2);
+
+            } // ajaxFunction
+   </script>
+
+</head>
+<body>
+   <div id="lastModified">Last Modified: 11/04/2015</div>  
+   <div id="copyright">&copy; 2015 Shanshan Jiang</div>  
+   <div align=center>
+   <!-- The PA universities database begins here-->
+   <form name="myForm" action="">
+
+        <h2>-- PA Universities Database --</h2>
+
+        <table id=myTable border=0 width=500px align=center bgcolor=whitesmoke>
+           <tr>
+             <th width=250 id=myTD>Enter University Name:</th>
+             <td width=250><input type="text" name="aname" onKeyUp="ajaxFunction();"></td>
+           </tr>
+           <tr>
+             <th width=250 id=myTD2>Enter the city:</th>
+             <td width=250><input type="text" name="acity" onKeyUp="ajaxFunction2();"></td>
+           </tr>
+        </table>
+
+        <br>
+        <!-- display university data -->
+        <div id="myDiv"></div>
+
+   </form>
+   <!-- The PA universities database ends here-->
+   </div>
+</body>
+</html>

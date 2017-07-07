@@ -1,0 +1,204 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+"http://www.w3.org/TR/html4/loose.dtd">
+<!-- pa_universities2.html
+     Name: Shanshan Jiang
+     Course: IAD   
+     HW#: HW4
+     Time: 11/04/2015/
+     -->
+<!--In the pa_universities2.html,
+    one can search all information about PA univesities 
+    by enter institution_name or address or city.
+    Just use one php called pa_universities3.php
+    -->
+
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <title>IAD HW4 extra</title>
+
+   <style type=text/css>
+       body  {font-family:arial;background-color: #4FB3E7;}
+       h2    {color:gray; text-align:center;color: #336;}
+       td,th {font-size: 10pt; text-align:left;}
+       #lastModified
+       {
+        width: 100%;
+        position: absolute;
+        top: 30px;
+        right: 5px;
+        z-index: 6;
+        padding-top: 10px;
+        text-align: right;
+        font-size: 11px;
+       }
+       #copyright
+       {
+        border-bottom: 3px solid #B6B3C4;
+        background-color: #336;
+        color: #FFFFFF;
+        font-size: 11px;
+        text-align: center;
+        padding: 5px;
+        }
+
+   </style>
+
+   <!-- Google Map -->
+   <!-- Source: https://developers.google.com/maps/documentation/javascript/reference -->
+   <!-- Had to get a key from http://code.google.com/apis/maps/signup.html -->
+   <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAFTWga0228D1ElXbOwBcPdhRPLAW-gKy_Dw707Lh5l9KS-3a-ERSi8pFSPbaVq5dcKD5tTw3SVq37sw" type="text/javascript"></script>
+
+
+   <script type="text/javascript">
+            var map = null;
+            var geocoder = null;
+
+            //*** Universities' data is read from MySql DB
+
+            var xmlhttp = new XMLHttpRequest();
+            //*** the event handler begins here *****************************
+            xmlhttp.onreadystatechange=function() {
+
+                   //*** response is ready
+                   if ((xmlhttp.readyState == 4) && (xmlhttp.status == 200)) {
+
+                        //*** results return as a table that is plugged into myDiv
+                        document.getElementById("myTable").style.background="#abcdef";
+                        document.getElementById("myTD").style.color="white";
+                        document.getElementById("myTD").style.fontWeight="bold";
+                        document.getElementById("myTD2").style.color="white";
+                        document.getElementById("myTD2").style.fontWeight="bold";
+                        document.getElementById("myTD3").style.color="white";
+                        document.getElementById("myTD3").style.fontWeight="bold";
+
+                        document.getElementById("myDiv").innerHTML = xmlhttp.responseText;
+                   }
+
+            } // onreadystatechange ******************************************
+            function initialize() {
+      if (GBrowserIsCompatible()) {
+      map = new GMap2(document.getElementById("myMap"));
+      map.setCenter(new GLatLng(37.4419, -122.1419), 13);
+      geocoder = new GClientGeocoder();
+
+                     //*** initially show SJU on the map
+      showAddress('5600 City Avenue, Philly');
+      }
+    }
+
+    function showAddress(address) {
+
+      if (geocoder) {
+      geocoder.getLatLng(
+        address,
+        function(point) {
+        if (!point) {
+          alert(address + " not found");
+        } else {
+          map.setCenter(point, 13);
+          var marker = new GMarker(point);
+          map.addOverlay(marker);
+          marker.openInfoWindowHtml(address);
+        }
+        }
+      );
+      }
+    }
+   </script>
+   <script type="text/javascript">
+            
+            //*** initiate the asynchronous request
+            function ajaxFunction() {
+
+
+              //*** prepare the server URL and query string
+              var URL = "pa_universities3.php";
+              var queryString1 = "aname=" + document.myForm.aname.value+"&option=1";
+
+
+              //*** open up the asynchronous request to server
+              xmlhttp.open("POST", URL, true);
+
+
+              //*** send the finalized request
+              xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+              xmlhttp.send(queryString1);
+
+            } // ajaxFunction
+
+            //*** initiate the asynchronous request
+            function ajaxFunction2() {
+
+
+              //*** prepare the server URL and query string
+              var URL = "pa_universities3.php";
+              var queryString2 = "aaddress=" + document.myForm.aaddress.value+"&option=2";
+
+
+              //*** open up the asynchronous request to server
+              xmlhttp.open("POST", URL, true);
+
+
+              //*** send the finalized request
+              xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+              xmlhttp.send(queryString2);
+
+            } // ajaxFunction
+
+            //*** initiate the asynchronous request
+            function ajaxFunction3() {
+
+              //*** prepare the server URL and query string
+              var URL = "pa_universities3.php";
+              var queryString3 = "acity=" + document.myForm.acity.value+"&option=3";
+
+
+              //*** open up the asynchronous request to server
+              xmlhttp.open("POST", URL, true);
+
+              //*** send the finalized request
+              xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+              xmlhttp.send(queryString3);
+
+            } // ajaxFunction
+   </script>
+
+</head>
+<body onLoad="initialize();">
+   <div id="lastModified">Last Modified: 11/04/2015</div>  
+   <div id="copyright">&copy; 2015 Shanshan Jiang</div>  
+   <div align=center>
+   <!-- The PA universities database begins here-->
+   <form name="myForm" action="">
+
+        <h2>-- PA Universities Database --</h2>
+
+        <table id=myTable border=0 width=500px align=center bgcolor=whitesmoke>
+           <tr>
+             <th width=250 id=myTD>Enter University Name:</th>
+             <td width=250><input type="text" name="aname" onKeyUp="ajaxFunction();"></td>
+             <td><a href="javascript:void(0);" onClick="showAddress(myForm.aname.value);">Map</a></td>
+           </tr>
+           <tr>
+             <th width=250 id=myTD2>Enter the address:</th>
+             <td width=250><input type="text" name="aaddress" onKeyUp="ajaxFunction2();"></td>
+             <td><a href="javascript:void(0);" onClick="showAddress(myForm.aaddress.value);">Map</a></td>
+           </tr>
+           <tr>
+             <th width=250 id=myTD3>Enter the city:</th>
+             <td width=250><input type="text" name="acity" onKeyUp="ajaxFunction3();"></td>
+           </tr>
+        </table>
+
+        <br>
+        <!-- display university data -->
+        <div id="myDiv"></div>
+        <br>
+        <!-- display map -->
+        <div id="myMap" style="width: 500px; height: 300px; visibility: visible"></div>
+   </form>
+   <!-- The PA universities database ends here-->
+   </div>
+</body>
+</html>
